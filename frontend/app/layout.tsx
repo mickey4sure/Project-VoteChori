@@ -14,6 +14,7 @@ const geistMono = localFont({
 });
 
 import { Providers } from "@/components/Providers";
+import ChoriGuardAI from "@/components/ChoriGuardAI";
 
 export const metadata: Metadata = {
   title: "Project-VoteChori | Election Integrity Agent",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
+          <ChoriGuardAI />
         </Providers>
       </body>
     </html>
