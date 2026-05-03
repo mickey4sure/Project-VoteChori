@@ -1,0 +1,14 @@
+.gcloudignore
+.git
+.gitignore
+node_modules/
+**/node_modules/
+frontend/.next/
+frontend/dist/
+backend/dist/
+*.log
+.DS_Store
+.vscode/
+.idea/
+.env.local
+.env.*.local

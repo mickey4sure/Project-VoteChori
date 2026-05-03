@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  firebaseUid String   @unique
+  email       String   @unique
+  createdAt   DateTime @default(now())
+  citizenId   String?  @unique
+
+  @@index([firebaseUid])
+}
+
+model State {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  districts District[]
+}
+
+model ElectionPhase {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  date      DateTime
+  districts District[]
+}
+
+model District {
+  id              Int            @id @default(autoincrement())
+  name            String
+  stateId         Int
+  electionPhaseId Int?
+  electionPhase   ElectionPhase? @relation(fields: [electionPhaseId], references: [id])
+  state           State          @relation(fields: [stateId], references: [id])
+  facts           FactCheck[]
+
+  @@index([stateId])
+  @@index([electionPhaseId])
+}
+
+model FactCheck {
+  id           Int       @id @default(autoincrement())
+  rumorText    String
+  officialFact String
+  sourceUrl    String
+  isVerified   Boolean   @default(false)
+  tags         String[]
+  createdAt    DateTime  @default(now())
+  districtId   Int?
+  district     District? @relation(fields: [districtId], references: [id])
+
+  @@index([districtId])
+}
+
+model MockAadhaarRecord {
+  id                Int                 @id @default(autoincrement())
+  aadhaarNumber     String              @unique
+  fullName          String
+  dateOfBirth       DateTime
+  parentId          Int?
+  isRegisteredVoter Boolean             @default(false)
+  voterIdNumber     String?             @unique
+  simulationLogs    AvrSimulationLog[]
+  parent            MockAadhaarRecord?  @relation("ParentChild", fields: [parentId], references: [id])
+  children          MockAadhaarRecord[] @relation("ParentChild")
+  documents         MockIdentityDoc[]
+}
+
+model MockIdentityDoc {
+  id             Int               @id @default(autoincrement())
+  citizenId      Int
+  documentType   String
+  documentNumber String            @unique
+  isOcrVerified  Boolean           @default(false)
+  citizen        MockAadhaarRecord @relation(fields: [citizenId], references: [id])
+}
+
+model AvrSimulationLog {
+  id          Int               @id @default(autoincrement())
+  citizenId   Int
+  status      String
+  currentStep String
+  createdAt   DateTime          @default(now())
+  citizen     MockAadhaarRecord @relation(fields: [citizenId], references: [id])
+}
+
+model Faq {
+  id        Int      @id @default(autoincrement())
+  question  String   @unique
+  answer    String
+  category  String   @default("General")
+  isCommon  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Booth {
+  id           Int      @id @default(autoincrement())
+  name         String
+  address      String
+  lat          Float
+  lng          Float
+  type         String
+  constituency String?
+  city         String?
+  state        String?
+  status       String   @default("Active")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
