@@ -8,7 +8,7 @@
 ## 🔗 Quick Access
 - **Source Code**: [GitHub Repository](https://github.com/mickey4sure/Project-VoteChori)
 - **Official License**: [MIT License](LICENSE)
-- **Cloud Run**: [Link]([https://votechori-frontend-308600645833.asia-south1.run.app])
+- **Cloud Run**: [Link](https://votechori-frontend-308600645833.asia-south1.run.app)
 
 ---
 
