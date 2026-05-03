@@ -81,14 +81,14 @@ graph TD
 ### 2. Environment Configuration
 **Backend (.env)**
 ```env
-DATABASE_URL="postgresql://postgres:[password]@34.47.156.206:5432/postgres"
-GEMINI_API_KEY="AIza..."
+DATABASE_URL="postgresql://[user]:[password]@[host]:[port]/[database]"
+GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
 ```
 
 **Frontend (.env.local)**
 ```env
 NEXT_PUBLIC_API_URL="http://localhost:5000"
-NEXT_PUBLIC_FIREBASE_API_KEY="..."
+NEXT_PUBLIC_FIREBASE_API_KEY="YOUR_FIREBASE_API_KEY"
 ```
 
 ### 3. Execution

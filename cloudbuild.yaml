@@ -37,7 +37,7 @@ steps:
       - '--image'
       - 'gcr.io/$PROJECT_ID/votechori-backend'
       - '--region'
-      - 'us-central1'
+      - 'asia-south1'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
@@ -56,6 +56,8 @@ steps:
       - '80'
       - '--update-env-vars'
       - 'NODE_ENV=production,DATABASE_URL=$_DATABASE_URL,GEMINI_API_KEY=$_GEMINI_API_KEY,ALLOWED_ORIGIN=$_ALLOWED_ORIGIN'
+      - '--add-cloudsql-instances'
+      - '$PROJECT_ID:asia-south1:postgres'
 
   # 6. Deploy Frontend to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -67,7 +69,7 @@ steps:
       - '--image'
       - 'gcr.io/$PROJECT_ID/votechori-frontend'
       - '--region'
-      - 'us-central1'
+      - 'asia-south1'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
